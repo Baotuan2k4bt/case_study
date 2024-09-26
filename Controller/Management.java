@@ -3,6 +3,9 @@ import Case_Study_Module2.Write.WriteFile;
 import Case_Study_Module2.model.MembershipCard;
 import Case_Study_Module2.model.RentalCard;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -11,23 +14,29 @@ import java.util.*;
 public class Management {
     ArrayList<RentalCard> cards = new ArrayList<>();
     private final Scanner scanner = new Scanner(System.in);
+  private String  FILE_Management = "src/Case_Study_Module2/Data/ManagementFile.csv";
+    public Management() {
+        cards = new ArrayList<>();
+    }
+
 
     public void enterInformation() {
-        System.out.println("Nhập danh sách n thẻ thuê truyện :");
         int n = new Scanner(System.in).nextInt();
         for (int i = 0; i < n; i++) {
-            System.out.println("Nhập thẻ thuê truyện  thứ :" + (i+1));
+            System.out.println("Nhập thẻ thuê truyện  thứ :" + (i + 1));
             RentalCard bt = new RentalCard();
             bt.Input();
             cards.add(bt);
         }
     }
+
     public void addCards(RentalCard mb) {
         this.cards.add(mb);
         System.out.println("Thêm thẻ thuê truyện thành công!");
     }
 
-    public void displayCard(){
+
+  public void displayCard(){
         System.out.println("Danh sách thẻ thuê :");
         System.out.println("______________________________________________________________________________________________________________________________________________");
         System.out.println("|  ReaderCode " + "|" + "     Name      " + "|" + "   adress    " + "|" + "    birthDate    " + "|" + " borrowCount " + "|" + "   bookID " + "|" + "   borrowDate   " + "|" + "   returnDate    " + "|" + "   amountOfRent    " + "|");
@@ -35,13 +44,12 @@ public class Management {
         for (RentalCard pt : cards) {
             pt.Output(pt);
             System.out.println("\n|--------------------------------------------------------------------------------------------------------------------------------------------|");
-            WriteFile.writeToFile(pt);
+            WriteFile.writeToFile(cards);
 
         }
 
     }
-
-    public int borrowCardCounting() {
+  public int borrowCardCounting() {
         return this.cards.size();
     }
 
@@ -74,9 +82,6 @@ public class Management {
         }
     }
 }
-
-
-
  public void findReader() {
         System.out.println("Nhập mã thẻ thuê tìm kiếm:");
         String n = new Scanner(System.in).nextLine();
@@ -93,12 +98,14 @@ public class Management {
     }
 
     public void deleteCard() {
+
         System.out.println("Mã thẻ thuê cần xóa là:");
         String v= new Scanner(System.in).nextLine();
         for (int i = 0; i < cards.size(); i++) {
             if (cards.get(i).getReaderCode().equals(v)) {
                 cards.remove(i);
                 System.out.println("Đã xóa thẻ thuê  đó");
+                WriteFile.writeToFile(cards);
                 return;
 
             }
@@ -108,18 +115,26 @@ public class Management {
 
     }
 
-    public void Update() {
+    public void edit() {
+        System.out.println("Mã th�� thuê cần cập nhật là:");
+        String v= new Scanner(System.in).nextLine();
+        for (int i = 0; i < cards.size(); i++) {
+            if (cards.get(i).getReaderCode().equals(v)) {
+                System.out.println("Nhập thông tin mới cho th�� thuê:");
+                cards.get(i).Input();
+                System.out.println("Đã cập nhật thành công");
+                WriteFile.writeToFile(cards);
 
-            System.out.println("Mã thẻ thuê cần cập nhật là:");
-            String v = new Scanner(System.in).nextLine();
-            for (RentalCard find : cards) {
-                if (find.getReaderCode().equals(v)) {
-                    find.Input();  // Cập nhật thông tin thẻ
-                    System.out.println("Đã cập nhật thông tin thẻ thuê của người đó");
-                    WriteFile.overwriteFile(cards);  // Ghi đè lại toàn bộ danh sách thẻ
-                    return;
-                }
+                return;
+
             }
+
+        }
+        System.out.println("Không tìm thấy th�� thuê với mã cập nhật " +  v);
+
+
+
+
     }
     public double totalRent(){
         double total = 0;

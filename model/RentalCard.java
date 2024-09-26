@@ -18,6 +18,13 @@ public class RentalCard extends MembershipCard {
         this.returnDate = returnDate;
         this.amountOfRent = amountOfRent;
     }
+
+    public RentalCard(String cardDetail, String cardDetail1, String cardDetail2, String cardDetail3, int borrowCount, String cardDetail4, String cardDetail5, String cardDetail6, int amountOfRent) {
+    }
+
+    public RentalCard(String[] cardDetails) {
+    }
+
     public int getBorrowCount() {
         return borrowCount;
     }
@@ -65,12 +72,16 @@ public class RentalCard extends MembershipCard {
         this.amountOfRent=new Scanner(System.in).nextDouble();
 
     }
+
     @Override
     public void Output( RentalCard s ){
         super.Output(s);
         System.out.printf("|%13s|%10s|%16s|%17s|%18s|",s.getBorrowCount(),s.getBookID(),s.getBorrowDate(),s.getReturnDate(),s.getAmountOfRent());
 
     }
+
+
+
 
     @Override
     public String toString() {

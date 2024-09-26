@@ -23,7 +23,7 @@ public class TestManagement {
                 case 1:
                     management.displayCard();
                     break;
-                case 2:
+         case 2:
                     System.out.println("Nhập thẻ thuê mới:");
                     RentalCard bt = new RentalCard();
                     bt.Input();
@@ -44,7 +44,7 @@ public class TestManagement {
                     management.findReader();
                     break;
             case 7:
-                management.Update();
+                management.edit();
                     break;
                 case 8:
                     management.deleteCard();
@@ -53,7 +53,7 @@ public class TestManagement {
                   management.totalRent();
                     System.out.println("Tổng tiền thuê truyện là "+management.totalRent()+"VND");
                 case 10:
-                    management.Exit();
+                management.Exit();
                 default:
                     System.out.println("Nhập Sai Số!");
             }
@@ -61,6 +61,7 @@ public class TestManagement {
 
     }
     }
+
 
 
 

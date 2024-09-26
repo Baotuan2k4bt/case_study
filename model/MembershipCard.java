@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
-public class MembershipCard implements Comparable<MembershipCard> {
+public abstract class MembershipCard implements Comparable<MembershipCard> {
     private String readerCode;
     private String name;
     private String adress;
@@ -66,10 +66,10 @@ public class MembershipCard implements Comparable<MembershipCard> {
             }
         }
     }
-
     public void Output(RentalCard s) {
         System.out.printf("|%13s|%15s|%13s|%17s",s.getReaderCode(),s.getName(),s.getAdress(),s.getBirthDate());
     }
+
 
     @Override
     public String toString() {
@@ -85,6 +85,7 @@ public class MembershipCard implements Comparable<MembershipCard> {
     public int compareTo(MembershipCard o) {
         return this.birthDate.compareTo(o.birthDate)*-1;
       };
+
 
 
 }
